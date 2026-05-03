@@ -15,7 +15,7 @@ export default function MapCardComponent({ card }: { card: MapCard }) {
       variant="elevated"
       flexDirection="row"
       marginBottom="20px"
-      width="510px"
+      width="100%"
       size="sm"
     >
       <Image maxW="150px" src={card.imageUrl} alt="Map card image" />

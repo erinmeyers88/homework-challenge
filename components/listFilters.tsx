@@ -8,6 +8,7 @@ import {
   SelectValueChangeDetails,
   Badge,
   Input,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { RxFilter } from "react-icons/rx";
 import { useMemo } from "react";
@@ -31,12 +32,13 @@ export default function ListFilters({
 
   const debouncedSetSearch = debounce(setSearchText, 200);
 
+  const sameWidth = useBreakpointValue({ base: true, md: false });
+
   return (
     <Box
       display="flex"
-      flexDirection="row"
-      w="100%"
-      h="75px"
+      flexDirection={{ base: "column", md: "row" }}
+      h="fit-content"
       padding="20px"
       justifyContent="flex-end"
       gap="20px"
@@ -45,7 +47,7 @@ export default function ListFilters({
         placeholder="Search by title or description"
         onChange={(e) => debouncedSetSearch(e.target.value)}
       ></Input>
-      <Popover.Root positioning={{ placement: "bottom-start" }}>
+      <Popover.Root positioning={{ sameWidth, placement: "bottom-end" }}>
         <Popover.Trigger asChild>
           <Button size="sm" variant="solid">
             <RxFilter /> Filter Data
@@ -58,7 +60,7 @@ export default function ListFilters({
         </Popover.Trigger>
         <Portal>
           <Popover.Positioner>
-            <Popover.Content>
+            <Popover.Content width={{ base: "auto", md: "300px" }}>
               <Popover.Arrow />
               <Popover.Body>
                 <Select.Root
@@ -84,13 +86,12 @@ export default function ListFilters({
                       </Badge>
                     )}
                   </Select.Label>
-                  <Select.Label></Select.Label>
                   <Select.Control>
-                    <Select.Trigger>
+                    <Select.Trigger cursor="pointer">
                       <Select.ValueText placeholder="Select Data Source(s)" />
                     </Select.Trigger>
                     <Select.IndicatorGroup>
-                      <Select.ClearTrigger />
+                      <Select.ClearTrigger cursor="pointer" />
                       <Select.Indicator />
                     </Select.IndicatorGroup>
                   </Select.Control>
