@@ -10,7 +10,7 @@ import {
   Input,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { RxFilter } from "react-icons/rx";
+import { PiFunnelSimple } from "react-icons/pi";
 import { useMemo } from "react";
 import { debounce } from "lodash";
 
@@ -50,7 +50,7 @@ export default function ListFilters({
       <Popover.Root positioning={{ sameWidth, placement: "bottom-end" }}>
         <Popover.Trigger asChild>
           <Button size="sm" variant="solid">
-            <RxFilter /> Filter Data
+            <PiFunnelSimple /> Filter
             {selectedSources.length > 0 && (
               <Badge variant="solid" colorPalette="blue" marginLeft="10px">
                 {1}

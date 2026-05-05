@@ -1,6 +1,6 @@
 import { Box, Card, HStack, Badge, Image, Button } from "@chakra-ui/react";
 import { MapCard } from "../../types";
-import { RxPlus, RxMinus } from "react-icons/rx";
+import { PiPlus, PiMinus } from "react-icons/pi";
 
 export default function MapCardComponent({
   card,
@@ -14,12 +14,16 @@ export default function MapCardComponent({
   return (
     <Card.Root
       variant="elevated"
-      flexDirection="row"
+      flexDirection={{ mdDown: "column", md: "row" }}
       marginBottom="20px"
       width="100%"
       size="sm"
     >
-      <Image maxW="150px" src={card.imageUrl} alt="Map card image" />
+      <Image
+        maxW={{ mdDown: "100%", md: "150px" }}
+        src={card.imageUrl}
+        alt="Map card image"
+      />
       <Box>
         <Card.Body>
           <HStack mb="4">
@@ -33,7 +37,7 @@ export default function MapCardComponent({
             variant={isSelected ? "outline" : "solid"}
             onClick={() => onClick(card)}
           >
-            {isSelected ? <RxMinus /> : <RxPlus />}
+            {isSelected ? <PiMinus /> : <PiPlus />}
             {isSelected ? "Remove" : "Add to Map"}
           </Button>
         </Card.Footer>

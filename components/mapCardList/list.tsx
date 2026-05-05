@@ -9,7 +9,7 @@ import {
 import ListFilters from "./listFilters";
 import { MapCard } from "../../types";
 import MapCardComponent from "./mapCard";
-import { useEffect, useState, useMemo, Dispatch, SetStateAction } from "react";
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { filterBySearchText, filterBySources } from "./listUtils";
 import { uniqBy, uniq } from "lodash";
 
@@ -38,7 +38,7 @@ export default function List({
         const subLabels = uniqueCards.map((c) => c.subLabel);
         const uniqueSubLabels = uniq(subLabels);
         setDataSourceList(uniqueSubLabels);
-        setCardList(cards);
+        setCardList(uniqueCards);
         setTimeout(() => setLoading(false), 750);
       } catch (e) {
         console.error(e);
@@ -48,13 +48,9 @@ export default function List({
     fetchCardList();
   }, []);
 
-  const filteredCardList = useMemo(
-    () =>
-      cardList
-        .filter((c) => filterBySearchText(c, searchText))
-        .filter((c) => filterBySources(c, selectedDataSources)),
-    [cardList, searchText, selectedDataSources],
-  );
+  const filteredCardList = cardList
+    .filter((c) => filterBySearchText(c, searchText))
+    .filter((c) => filterBySources(c, selectedDataSources));
 
   const handleToggleCard = (card: MapCard) => {
     setSelectedDatasets((prev) => {
@@ -112,9 +108,9 @@ export default function List({
                 <Box padding="20px">
                   {filteredCardList.length > 0 &&
                     filteredCardList.map((card, idx) => {
-                      const isSelected = selectedDatasets.findIndex(
-                        (c) => c.id === card.id,
-                      ) > -1;
+                      const isSelected =
+                        selectedDatasets.findIndex((c) => c.id === card.id) >
+                        -1;
                       return (
                         <MapCardComponent
                           card={card}
