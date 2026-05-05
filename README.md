@@ -1,8 +1,10 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Map Dataset Selector
+
+This is a Next.js application that displays a map view (currently a placeholder) alongside a list of selectable datasets. The primary goal is to allow users to filter and select one or more datasets to visualize on the map.
 
 ## Getting Started
 
-Install the packages:
+Install dependencies:
 `npm install`
 
 Run the development server:
@@ -10,26 +12,42 @@ Run the development server:
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Purpose
+## Architecture
 
-This app has a single route that displays a map view (placeholder only for now) and a list of map cards. The app's main purpose is to allow a user to select one or more sets of data to display on the map. The sets of data are represented by a list of cards which can be filtered.
+### Component Structure
 
-## State Management
+- page.tsx – top-level layout and shared state
+- map.tsx – map view (placeholder)
+- list.tsx – dataset list, filtering, and selection logic
+- smaller components (cards, filters) are stateless and reusable
 
-I chose to use local React state instead of Redux due to the app's simplicity. The parent component `page.tsx` contains only the minimal state needed by both if its child components (`map.tsx` and `list.tsx`). The rest of the state lives in the `list.tsx` component, in order to avoid unncessary re-rendering of the map. The card and filter components are stateless.
+### State Management
+
+I chose to use local React state instead of Redux due to the app's simplicity and limited shared state. The parent component `page.tsx` contains only the minimal state needed by both of its child components (`map.tsx` and `list.tsx`). The rest of the state lives in the `list.tsx` component, in order to avoid unnecessary re-rendering of the map. The card and filter components are stateless.
 
 ## UI/UX
 
-The design is responsive, enabled by Chakra UI breakpoints. It renders the map and list side by side on large screens, while on mobile screen there is a view switcher button at the bottom that toggles between the two views.
+The UI is responsive using Chakra UI breakpoints:
 
-The card list handles a variety of states, including showing a loader while data is loading, an error message if an error occurs, and an empty message if there are no map cards.
+- Desktop: map and list are displayed side by side
+- Mobile: a bottom-positioned toggle switches between map and list views
 
-Rather than rendering the data source filter directly next to the search input, I designed a filter popup that can accomodate a list of filters. I also included an indicator for the number of filters applied. This allows the filtering solution to scale if the dataset or filtering requirements grow more complex.
+Key UX decisions:
+
+- Explicit handling of loading, error, and empty states
+- Popover-based filter design allows additional filters to be added without restructuring the layout.
+- Visual indicator showing how many filters are applied
 
 ## Testing
 
-Testing is included for the filtering functionality and can be run using `npm run test`.
+Unit tests are included for the filtering logic and can be run using `npm run test`.
+
+## Tradeoffs
+
+- Local state vs Redux - Local is ok for now but if more components needed shared state I would change to Redux
+- Popover filter vs in-line filter - The popover design requires an extra click, but will scale well if more filters are needed
+- Mobile view - The mobile view requires the user to switch between the list and map views, but gives the map the full screen. If mobile use is heavy I would change the design to be more map-centric with a list popup (possibly not cards) to select data sets.
 
 ## Use of AI
 
-I was advised to limit AI usage for this assignment. The code here is mine aside from anything that was generated via command line or that I copied as part of library setup (such as Next js boilerplate, Chakra UI setup, etc.) I used AI only for debugging and searching Chakra UI documentation, but not for code generation. I have thoughts on how spec-driven AI development could have aided this project, but I chose not to use it as I did not want to violate the rules of the assignment.
+I was advised to limit AI usage for this assignment. The code here is mine aside from anything that was generated via command line or that I copied as part of library setup (such as Next js boilerplate, Chakra UI setup, etc.) I used AI only for debugging and searching Chakra UI documentation, not for code generation. I have thoughts on how spec-driven AI development could have aided this project, but I chose not to use it as I did not want to violate the rules of the assignment.
