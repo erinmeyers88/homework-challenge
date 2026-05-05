@@ -1,7 +1,7 @@
 export type MapCard = {
   id: string;
   label: string;
-  queryType: string; // could narrow later if needed
+  queryType: string;
   imageUrl: string;
   description: string;
   subLabel: string;

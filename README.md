@@ -6,31 +6,30 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Purpose
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This app has a single route that displays a map view (placeholder only for now) and a list of map cards. The app's main purpose is to allow a user to select one or more sets of data to display on the map. The sets of data are represented by a list of cards which can be filtered.
 
-## Learn More
+State Management
 
-To learn more about Next.js, take a look at the following resources:
+All of the state is managed locally in the list component using useState, as it was not complex enough to require Redux. The card and filter components are stateless. I chose not to keep state at the page level to avoid causing unneeded re-rendering of the map.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+UI/UX
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The design is responsive, enabled by Chakra UI breakpoints, such that it renders the map and list side by side on large screens and within tabs on smaller screens.
 
-## Deploy on Vercel
+The card list handles a variety of states, including showing a loader while data is loading, an error message if an error occurs, and an empty message if there are no map cards.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Rather than rendering the data source filter directly next to the search input, I designed a filter popup that can accomodate a list of filters and includes an indicator for the number of filters applied. This allows the filtering solution to scale if the dataset or filtering requirements grow more complex.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Testing
+
+Testing is included for the filtering functionality and can be run using `npm run test`.
+
+Use of AI
+
+I was advised to limit AI usage for this assignment. The code here is mine aside from anything that was generated via command line or that I copied as part of library setup (such as Next js boilerplate, Chakra UI setup, etc.) I used AI only for debugging and searching Chakra UI documentation, but not for code generation. I have thoughts on how spec-driven AI development could have aided this project, but I chose not to use it as I did not want to violate the rules of the assignment.

@@ -1,7 +1,16 @@
 import { Box, Card, HStack, Badge, Image, Button } from "@chakra-ui/react";
-import { MapCard } from "../types";
+import { MapCard } from "../../types";
+import { RxPlus, RxMinus } from "react-icons/rx";
 
-export default function MapCardComponent({ card }: { card: MapCard }) {
+export default function MapCardComponent({
+  card,
+  onClick,
+  isSelected,
+}: {
+  card: MapCard;
+  onClick: (value: MapCard) => void;
+  isSelected: boolean;
+}) {
   return (
     <Card.Root
       variant="elevated"
@@ -20,7 +29,13 @@ export default function MapCardComponent({ card }: { card: MapCard }) {
           <Card.Description>{card.description}</Card.Description>
         </Card.Body>
         <Card.Footer>
-          <Button>Add To Map</Button>
+          <Button
+            variant={isSelected ? "outline" : "solid"}
+            onClick={() => onClick(card)}
+          >
+            {isSelected ? <RxMinus /> : <RxPlus />}
+            {isSelected ? "Remove" : "Add to Map"}
+          </Button>
         </Card.Footer>
       </Box>
     </Card.Root>
