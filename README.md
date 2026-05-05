@@ -2,6 +2,8 @@
 
 This is a Next.js application that displays a map view (currently a placeholder) alongside a list of selectable datasets. The primary goal is to allow users to filter and select one or more datasets to visualize on the map.
 
+<img src="./Screenshot.png" width="1000px">
+
 ## Getting Started
 
 Install dependencies:
